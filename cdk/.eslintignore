@@ -1,0 +1,10 @@
+lib/*
+!lib/cdk-stack.ts
+!lib/waf-stack.ts
+.webpack/*
+node_modules/*
+dist/*
+cdk.out/*
+test/*
+bin/*
+!bin/cdk.ts
