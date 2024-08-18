@@ -1,0 +1,13 @@
+@import './variable';
+
+body {
+    margin: 0;
+    font-family: $defaultFontFamily;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: $codeFontFamily;
+}
+

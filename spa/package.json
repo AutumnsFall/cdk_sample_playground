@@ -1,0 +1,58 @@
+{
+  "name": "spa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "eject": "react-scripts eject",
+    "lint": "eslint './**/*.{js,ts,tsx}' --cache && tsc --noEmit",
+    "fix": "eslint './**/*.{js,ts,tsx}' --fix --cache && tsc --noEmit",
+    "generate-config:dev": "NODE_ENV=dev NODE_CONFIG_DIR='./config' node ./bin/generate-config.js",
+    "start": "npm run generate-config:dev && STAGE=dev webpack serve",
+    "build:dev": "npm run generate-config:dev && STAGE=dev webpack"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.3.3",
+    "classnames": "^2.5.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
+    "@types/jest": "^29.5.12",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.20",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^7.1.2",
+    "eslint-config-react-app": "^7.0.1",
+    "html-webpack-plugin": "^5.6.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "postcss-loader": "^8.1.1",
+    "sass": "^1.77.4",
+    "sass-loader": "^14.2.1",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  }
+}
