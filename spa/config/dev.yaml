@@ -1,4 +1,2 @@
 spa:
-  stage: &stage 'dev'
-
-
+  stage: dev

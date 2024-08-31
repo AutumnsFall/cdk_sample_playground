@@ -6,7 +6,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint './**/*.{js,ts,tsx}' --cache && tsc --noEmit",
     "fix": "eslint './**/*.{js,ts,tsx}' --fix --cache && tsc --noEmit",
-    "generate-config:dev": "NODE_ENV=dev NODE_CONFIG_DIR='./config' node ./bin/generate-config.js",
+    "buildConfig:dev": "NODE_ENV=dev NODE_CONFIG_DIR='./config' node ./bin/generate-config.js",
     "start": "npm run generate-config:dev && STAGE=dev webpack serve",
     "build:dev": "npm run generate-config:dev && STAGE=dev webpack"
   },

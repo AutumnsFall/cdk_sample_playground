@@ -1,1 +1,2 @@
+npm run buildConfig:dev
 npm run lint

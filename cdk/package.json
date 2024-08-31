@@ -9,11 +9,13 @@
     "test": "jest",
     "lint": "eslint './**/*.{js,ts}' --cache && tsc --noEmit",
     "fix": "eslint './**/*.{js,ts}' --fix --cache && tsc --noEmit",
-    "synth:dev": "NODE_ENV=dev cdk synth",
-    "deploy:dev": "NODE_ENV=dev cdk deploy --all"
+    "synth:dev": "NODE_CONFIG_STRICT_MODE=true NODE_ENV=dev cdk synth",
+    "deploy:dev": "NODE_CONFIG_STRICT_MODE=true NODE_CONFIG_DIR='./config' NODE_ENV=dev cdk deploy --all",
+    "buildConfig:dev": "NODE_ENV=dev NODE_CONFIG_DIR='./config' node ./bin/generate-config.js"
   },
   "devDependencies": {
     "@mrgrain/cdk-esbuild": "^5.2.6",
+    "@types/aws-lambda": "^8.10.145",
     "@types/jest": "^29.5.12",
     "@types/node": "20.14.9",
     "aws-cdk": "2.151.0",

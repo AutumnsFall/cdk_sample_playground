@@ -13,6 +13,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "concurrently \"npm run lint:cdk\" \"npm run lint:spa\"",
+    "buildConfig:dev": "concurrently \"cd cdk && npm run buildConfig:dev\" \"cd spa && npm run buildConfig:dev\"",
     "lint:cdk": "cd cdk && npm run lint",
     "lint:spa": "cd spa && npm run lint"
   },
