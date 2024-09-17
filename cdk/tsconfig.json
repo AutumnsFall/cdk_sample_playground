@@ -24,6 +24,9 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "config.json": ["./config/cdk.json"],
+    },
     "typeRoots": [
       "../node_modules/@types"
     ],

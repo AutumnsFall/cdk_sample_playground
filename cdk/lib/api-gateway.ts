@@ -1,19 +1,22 @@
 import { LambdaIntegration, MethodLoggingLevel, RestApi } from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
 import { LambdaStackFunctions } from './lambda-stack';
-import config from '../config/cdk.json';
+import 'tsconfig-paths/register';
+import config from 'config.json';
 
 export interface ApiGatewayProps extends LambdaStackFunctions {}
 
-export class ApiGatewayStack extends RestApi {
+export class ApiGateway {
+    private api: RestApi;
+
     public constructor(
         mainscope: Construct,
         id: string,
         private props: ApiGatewayProps,
     ) {
-        super(mainscope, id, {
+        this.api = new RestApi(mainscope, id, {
             restApiName: `cdk-${config.stage}-app`,
-            description: 'This service is the API Gateway',
+            description: 'API behind CloudFront',
             deployOptions: {
                 stageName: config.stage,
                 loggingLevel: MethodLoggingLevel.INFO,
@@ -37,11 +40,15 @@ export class ApiGatewayStack extends RestApi {
     }
 
     private setupHelloApi() {
-        this.root.addResource('hello').addMethod(
+        this.api.root.addResource('hello').addMethod(
             'get',
             new LambdaIntegration(this.props.helloLambdaFn, {
                 proxy: true,
             }),
         );
+    }
+
+    public get url(): string {
+        return this.api.url;
     }
 }

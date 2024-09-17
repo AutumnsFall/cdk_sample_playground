@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import config from '../..//config/cdk.json';
+import 'tsconfig-paths/register';
+import config from 'config.json';
 
 function getOrigin(event: APIGatewayProxyEvent) {
     const originKey = Object.keys(event.headers || {}).find((key) => /origin/i.test(key));

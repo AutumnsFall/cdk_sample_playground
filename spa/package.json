@@ -7,8 +7,8 @@
     "lint": "eslint './**/*.{js,ts,tsx}' --cache && tsc --noEmit",
     "fix": "eslint './**/*.{js,ts,tsx}' --fix --cache && tsc --noEmit",
     "buildConfig:dev": "NODE_ENV=dev NODE_CONFIG_DIR='./config' node ./bin/generate-config.js",
-    "start": "npm run generate-config:dev && STAGE=dev webpack serve",
-    "build:dev": "npm run generate-config:dev && STAGE=dev webpack"
+    "start": "npm run buildConfig:dev && STAGE=dev webpack serve",
+    "build:dev": "npm run buildConfig:dev && STAGE=dev webpack"
   },
   "browserslist": {
     "production": [

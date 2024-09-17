@@ -10,7 +10,8 @@
     "lint": "eslint './**/*.{js,ts}' --cache && tsc --noEmit",
     "fix": "eslint './**/*.{js,ts}' --fix --cache && tsc --noEmit",
     "synth:dev": "NODE_CONFIG_STRICT_MODE=true NODE_ENV=dev cdk synth",
-    "deploy:dev": "NODE_CONFIG_STRICT_MODE=true NODE_CONFIG_DIR='./config' NODE_ENV=dev cdk deploy --all",
+    "deploy:dev-cdk": "NODE_CONFIG_STRICT_MODE=true NODE_CONFIG_DIR='./config' NODE_ENV=dev cdk deploy --all",
+    "deploy:dev-all": "cd ../spa && npm run build:dev && npm run deploy:dev-cdk",
     "buildConfig:dev": "NODE_ENV=dev NODE_CONFIG_DIR='./config' node ./bin/generate-config.js"
   },
   "devDependencies": {
@@ -28,8 +29,10 @@
   },
   "dependencies": {
     "@aws-lambda-powertools/logger": "^2.7.0",
+    "@aws-sdk/client-ssm": "^3.651.1",
     "aws-cdk-lib": "2.151.0",
     "constructs": "^10.0.0",
+    "node-cache": "^5.1.2",
     "source-map-support": "^0.5.21"
   }
 }
