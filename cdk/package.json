@@ -11,7 +11,7 @@
     "fix": "eslint './**/*.{js,ts}' --fix --cache && tsc --noEmit",
     "synth:dev": "NODE_CONFIG_STRICT_MODE=true NODE_ENV=dev cdk synth",
     "deploy:dev-cdk": "NODE_CONFIG_STRICT_MODE=true NODE_CONFIG_DIR='./config' NODE_ENV=dev cdk deploy --all",
-    "deploy:dev-all": "cd ../spa && npm run build:dev && npm run deploy:dev-cdk",
+    "deploy:dev-all": "cd ../spa && npm run build:dev && cd ../cdk && npm run deploy:dev-cdk",
     "buildConfig:dev": "NODE_ENV=dev NODE_CONFIG_DIR='./config' node ./bin/generate-config.js"
   },
   "devDependencies": {

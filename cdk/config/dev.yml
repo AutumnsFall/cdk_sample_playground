@@ -2,6 +2,7 @@ cdk:
   stage: "dev"
   domainName: "sample.thantzin.ovh"
   region: "ap-northeast-1"
+  enableAPILambda: true # to toggle, also requires for SPA config
   ssm:
     certificateArnPath: "/certificates/dev/thantzin_ovh"
   allowedOrigins: 

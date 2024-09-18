@@ -72,7 +72,7 @@ module.exports = {
     },
     compress: true, // Enable gzip compression for everything served
     hot: true, // Enable webpack Hot Module Replacement feature
-    port: 3000,
+    port: 8443,
     server: 'http',
     allowedHosts: 'all',
   },

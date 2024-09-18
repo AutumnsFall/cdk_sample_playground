@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import spaConfig from 'spa.json';
+import { LambdaPayload } from './components/lambdaFetch';
 
 function App() {
   return (
@@ -9,17 +10,14 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          SPA on AWS CDK with React and TypeScript
           {spaConfig.stage}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {spaConfig.fetchFromLambda ? (
+          <LambdaPayload />
+        ) : (
+          <div>Fetching from Lambda is disabled</div>
+        )}
       </header>
     </div>
   );

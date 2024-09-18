@@ -1,2 +1,3 @@
 spa:
   stage: dev
+  fetchFromLambda: false # to toggle, also requires for CDK config

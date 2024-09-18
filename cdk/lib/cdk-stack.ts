@@ -5,6 +5,8 @@ import { ApiGateway } from './api-gateway';
 import { S3Bucket } from './s3-bucket';
 import { CloudfrontDistribution } from './cloudfront-distribution';
 import { getSSLCertificate } from './ssl-certificate';
+import 'tsconfig-paths/register';
+import config from 'config.json';
 
 export class CdkStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -12,13 +14,16 @@ export class CdkStack extends cdk.Stack {
             ...props,
         });
 
-        const lambdaStack = new LambdaStack(this, 'LambdaStack');
-        const lambdaFunctions = lambdaStack.functions;
-
         const originAccessIdentity = CloudfrontDistribution.getOAI(this);
         const certificate = getSSLCertificate(this);
 
-        const restApiGateway = new ApiGateway(this, 'ApiGatewayStack', lambdaFunctions);
+        let restApiGateway: ApiGateway | undefined;
+        let lambdaStack: LambdaStack | undefined;
+
+        if (config.enableAPILambda) {
+            lambdaStack = new LambdaStack(this, 'LambdaStack');
+            restApiGateway = new ApiGateway(this, 'ApiGatewayStack', lambdaStack.functions);
+        }
 
         const bucket = new S3Bucket(this, 'S3Bucket', originAccessIdentity);
         bucket.grantRead(originAccessIdentity);
@@ -27,7 +32,7 @@ export class CdkStack extends cdk.Stack {
             certificate,
             originAccessIdentity,
             bucket,
-            httpOrigin: restApiGateway.url,
+            lambdaApiOrigin: restApiGateway ? restApiGateway.url : '',
         });
 
         bucket.deployBucket(distribution);

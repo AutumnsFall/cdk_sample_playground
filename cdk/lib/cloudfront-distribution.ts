@@ -10,12 +10,12 @@ export interface CFPayload {
     certificate: ICertificate;
     originAccessIdentity: cloudfront.OriginAccessIdentity;
     bucket: Bucket;
-    httpOrigin: string;
+    lambdaApiOrigin?: string;
 }
 
 export class CloudfrontDistribution extends cloudfront.Distribution {
     constructor(scope: Construct, id: string, payload: CFPayload, props?: cloudfront.DistributionProps) {
-        const { certificate, originAccessIdentity, bucket, httpOrigin } = payload;
+        const { certificate, originAccessIdentity, bucket, lambdaApiOrigin } = payload;
         const defaultBehavior = {
             origin: new origins.S3Origin(bucket, {
                 originId: 's3-origin',
@@ -26,15 +26,16 @@ export class CloudfrontDistribution extends cloudfront.Distribution {
         } as cloudfront.BehaviorOptions;
 
         const additionalBehaviors: Record<string, cloudfront.BehaviorOptions> = {};
-
-        additionalBehaviors[`/${config.stage}/*`] = {
-            origin: new origins.HttpOrigin(httpOrigin.replace(/(http(s)?:\/\/)|(\/.*)/g, ''), {
-                originId: 'api-gateway-origin',
-                originPath: '',
-            }),
-            allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
-            cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
-        };
+        if (config.enableAPILambda) {
+            additionalBehaviors[`/${config.stage}/*`] = {
+                origin: new origins.HttpOrigin(lambdaApiOrigin!.replace(/(http(s)?:\/\/)|(\/.*)/g, ''), {
+                    originId: 'api-gateway-origin',
+                    originPath: '',
+                }),
+                allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+                cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+            };
+        }
 
         super(scope, id, {
             defaultRootObject: 'index.html',
