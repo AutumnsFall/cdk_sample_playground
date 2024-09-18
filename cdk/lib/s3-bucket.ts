@@ -13,15 +13,15 @@ export class S3Bucket extends s3.Bucket {
         private originAccessIdentity: cdk.aws_cloudfront.OriginAccessIdentity,
         props?: s3.BucketProps,
     ) {
+        //// https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-cloudfront-origins.S3Origin.html
         const defaultProps: s3.BucketProps = {
             bucketName: `sample.thantzin.ovh`,
             versioned: true,
             enforceSSL: true,
-            // publicReadAccess: false,
+            publicReadAccess: false,
             removalPolicy: cdk.RemovalPolicy.DESTROY, // Optional: Change to RETAIN in production
-            // blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+            blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
             accessControl: s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL,
-            websiteIndexDocument: 'index.html',
         };
 
         super(scope, id, { ...defaultProps, ...props });
@@ -30,7 +30,6 @@ export class S3Bucket extends s3.Bucket {
     }
 
     private setupPolicy(): void {
-        this.grantRead(this.originAccessIdentity);
         this.addToResourcePolicy(
             new iam.PolicyStatement({
                 actions: ['s3:GetObject'],
