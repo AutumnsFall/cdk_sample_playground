@@ -11,7 +11,7 @@ const fetchFromLambda = () => {
 
 export const LambdaPayload = () => {
   const { data, error, isLoading, isError } = useQuery({
-    queryKey: ['letterheads'],
+    queryKey: ['lambda'],
     queryFn: () => fetchFromLambda(),
   });
 

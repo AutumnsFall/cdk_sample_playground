@@ -1,1 +1,1 @@
-{"stage":"dev","domainName":"sample.thantzin.ovh","region":"ap-northeast-1","enableAPILambda":true,"ssm":{"certificateArnPath":"/certificates/dev/thantzin_ovh"},"allowedOrigins":["https://localhost:8443","http://localhost:8443","http://sample.thantzin.ovh","https://sample.thantzin.ovh"]}
+{"stage":"dev","domainName":"sample.thantzin.ovh","region":"ap-northeast-1","enableAPILambda":false,"ssm":{"certificateArnPath":"/certificates/dev/thantzin_ovh"},"allowedOrigins":["https://localhost:8443","http://localhost:8443","http://sample.thantzin.ovh","https://sample.thantzin.ovh"]}
