@@ -11,19 +11,31 @@ export interface CFPayload {
     originAccessIdentity: cloudfront.OriginAccessIdentity;
     bucket: Bucket;
     lambdaApiOrigin?: string;
+    albDnsName?: string;
 }
 
 export class CloudfrontDistribution extends cloudfront.Distribution {
     constructor(scope: Construct, id: string, payload: CFPayload, props?: cloudfront.DistributionProps) {
-        const { certificate, originAccessIdentity, bucket, lambdaApiOrigin } = payload;
-        const defaultBehavior = {
-            origin: new origins.S3Origin(bucket, {
-                originId: 's3-origin',
-                originAccessIdentity: originAccessIdentity,
-            }),
-            cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
-            viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-        } as cloudfront.BehaviorOptions;
+        const { certificate, originAccessIdentity, bucket, lambdaApiOrigin, albDnsName } = payload;
+        const defaultBehavior =
+            // {
+            //     origin: new origins.HttpOrigin(albDnsName!.replace(/(http(s)?:\/\/)|(\/.*)/g, ''), {
+            //         protocolPolicy: cloudfront.OriginProtocolPolicy.HTTP_ONLY,
+            //         originId: 'alb-origin',
+            //         originPath: '',
+            //     }),
+            //     allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+            //     viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+            // };
+
+            {
+                origin: new origins.S3Origin(bucket, {
+                    originId: 's3-origin',
+                    originAccessIdentity: originAccessIdentity,
+                }),
+                cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+                viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+            } as cloudfront.BehaviorOptions;
 
         const additionalBehaviors: Record<string, cloudfront.BehaviorOptions> = {};
         if (config.enableAPILambda) {
@@ -34,6 +46,18 @@ export class CloudfrontDistribution extends cloudfront.Distribution {
                 }),
                 allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
                 cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+            };
+        }
+
+        if (config.enableEc2) {
+            additionalBehaviors[`/ec2/${config.stage}/*`] = {
+                origin: new origins.HttpOrigin(albDnsName!.replace(/(http(s)?:\/\/)|(\/.*)/g, ''), {
+                    protocolPolicy: cloudfront.OriginProtocolPolicy.HTTP_ONLY,
+                    originId: 'alb-origin',
+                    originPath: '',
+                }),
+                allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+                viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
             };
         }
 

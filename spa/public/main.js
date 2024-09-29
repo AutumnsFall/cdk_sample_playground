@@ -45518,7 +45518,9 @@ function App() {
         alt: "logo"
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
         children: ["SPA on AWS CDK with React and TypeScript", spa_json__WEBPACK_IMPORTED_MODULE_3__.stage]
-      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_lambdaFetch__WEBPACK_IMPORTED_MODULE_4__.LambdaPayload, {})]
+      }), spa_json__WEBPACK_IMPORTED_MODULE_3__.fetchFromLambda ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_lambdaFetch__WEBPACK_IMPORTED_MODULE_4__.LambdaPayload, {}) : (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        children: "Fetching from Lambda is disabled"
+      })]
     }))
   }));
 }
@@ -45563,7 +45565,7 @@ var fetchFromLambda = function () {
 };
 var LambdaPayload = function () {
   var _a = (0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_2__.useQuery)({
-      queryKey: ['letterheads'],
+      queryKey: ['lambda'],
       queryFn: function () {
         return fetchFromLambda();
       }
@@ -54355,7 +54357,7 @@ function combine (array, callback) {
 /***/ ((module) => {
 
 "use strict";
-module.exports = {"stage":"dev"};
+module.exports = /*#__PURE__*/JSON.parse('{"stage":"dev","fetchFromLambda":false}');
 
 /***/ })
 
