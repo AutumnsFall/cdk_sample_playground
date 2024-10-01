@@ -1,3 +1,4 @@
+/*
 import { Construct } from 'constructs';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager';
@@ -6,17 +7,25 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import 'tsconfig-paths/register';
 import config from 'config.json';
 
+export enum CfType {
+    S3 = 'S3',
+    EC2 = 'EC2',
+    ECS = 'ECS',
+}
+
 export interface CFPayload {
     certificate: ICertificate;
-    originAccessIdentity: cloudfront.OriginAccessIdentity;
-    bucket: Bucket;
-    lambdaApiOrigin?: string;
-    albDnsName?: string;
+    defaultBehavior?: cloudfront.BehaviorOptions;
+    additionalBehaviors?: Record<string, cloudfront.BehaviorOptions>;
+    originAccessIdentity?: cloudfront.OriginAccessIdentity;
+    bucket?: Bucket;
+    origin?: string;
+    cfType: CfType;
 }
 
 export class CloudfrontDistribution extends cloudfront.Distribution {
     constructor(scope: Construct, id: string, payload: CFPayload, props?: cloudfront.DistributionProps) {
-        const { certificate, originAccessIdentity, bucket, lambdaApiOrigin, albDnsName } = payload;
+        const { certificate, originAccessIdentity, bucket } = payload;
         const defaultBehavior =
             // {
             //     origin: new origins.HttpOrigin(albDnsName!.replace(/(http(s)?:\/\/)|(\/.*)/g, ''), {
@@ -79,3 +88,4 @@ export class CloudfrontDistribution extends cloudfront.Distribution {
         });
     }
 }
+*/

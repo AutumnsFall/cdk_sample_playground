@@ -9,7 +9,7 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 export interface Ec2AlbProps extends ApplicationLoadBalancerProps {
     vpc: ec2.IVpc;
     cloudFrontOnly: boolean;
-    certificateArn: string;
+    certificateArn?: string;
 }
 
 export interface Ec2AlbInstanceVars {}

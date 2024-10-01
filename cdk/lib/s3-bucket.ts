@@ -15,7 +15,7 @@ export class S3Bucket extends s3.Bucket {
     ) {
         //// https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-cloudfront-origins.S3Origin.html
         const defaultProps: s3.BucketProps = {
-            bucketName: `sample.thantzin.ovh`,
+            bucketName: `thantzin.ovh`,
             versioned: true,
             enforceSSL: true,
             publicReadAccess: false,

@@ -45559,7 +45559,7 @@ var __assign = undefined && undefined.__assign || function () {
 
 
 var fetchFromLambda = function () {
-  return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get('https://sample.thantzin.ovh/dev/hello').then(function (res) {
+  return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get('https://thantzin.ovh/dev/hello').then(function (res) {
     return res.data.msg;
   });
 };
@@ -54357,7 +54357,7 @@ function combine (array, callback) {
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"stage":"dev","fetchFromLambda":false}');
+module.exports = /*#__PURE__*/JSON.parse('{"stage":"dev","fetchFromLambda":true}');
 
 /***/ })
 

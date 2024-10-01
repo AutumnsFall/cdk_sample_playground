@@ -1,15 +1,18 @@
 cdk:
   stage: "dev"
-  domainName: "sample.thantzin.ovh"
+  domainNames: 
+    main: "thantzin.ovh"
+    ec2: "ec2.thantzin.ovh"
+    ecs: "ecs.thantzin.ovh"
   region: "ap-northeast-1"
-  enableAPILambda: false # to toggle, also requires for SPA config
+  enableAPILambda: true # to toggle, also requires for SPA config
   enableEc2: false # to toggle
   ssm:
-    certificateArnPath: "/certificates/dev/thantzin_ovh"
+    mainCertificateArnPath: "/certificates/dev/thantzin_ovh"
   allowedOrigins: 
     - "https://localhost:8443"
     - "http://localhost:8443"
-    - "http://sample.thantzin.ovh"
-    - "https://sample.thantzin.ovh"
+    - "http://thantzin.ovh"
+    - "https://thantzin.ovh"
 
 

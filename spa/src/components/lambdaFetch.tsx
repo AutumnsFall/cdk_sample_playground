@@ -5,7 +5,7 @@ import { Box, CircularProgress } from '@mui/material';
 
 const fetchFromLambda = () => {
   return axios
-    .get('https://sample.thantzin.ovh/dev/hello')
+    .get('https://thantzin.ovh/dev/hello')
     .then((res) => res.data.msg);
 };
 

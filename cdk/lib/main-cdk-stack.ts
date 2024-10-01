@@ -1,16 +1,12 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { LambdaStack } from './lambda-stack';
-import { ApiGateway } from './api-gateway';
-import { S3Bucket } from './s3-bucket';
-import { CloudfrontDistribution } from './cloudfront-distribution';
-import { getSSLCertificate } from './ssl-certificate';
 import 'tsconfig-paths/register';
 import config from 'config.json';
 import { Ec2VPC } from './ec2_vpc';
 import { Ec2Alb } from './ec2_alb';
 import { Ec2AutoScalingGroup } from './ec2-autoScaling';
 import { InstanceClass, InstanceSize, InstanceType, MachineImage, SubnetType } from 'aws-cdk-lib/aws-ec2';
+import { LambdaApiStack } from './lambda-api-stack';
 
 export class CdkStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -18,29 +14,15 @@ export class CdkStack extends cdk.Stack {
             ...props,
         });
 
-        const originAccessIdentity = CloudfrontDistribution.getOAI(this);
-        const certificate = getSSLCertificate(this);
-
-        let restApiGateway: ApiGateway | undefined;
-        let lambdaStack: LambdaStack | undefined;
-        let alb: Ec2Alb | undefined;
-
         if (config.enableAPILambda) {
-            lambdaStack = new LambdaStack(this, 'LambdaStack');
-            restApiGateway = new ApiGateway(this, 'ApiGatewayStack', lambdaStack.functions);
-
-            new cdk.CfnOutput(this, 'LoadBalancerDNS', { value: restApiGateway.url });
+            new LambdaApiStack(this, 'LambdaApiStack');
         }
-
-        const bucket = new S3Bucket(this, 'S3Bucket', originAccessIdentity);
-        bucket.grantRead(originAccessIdentity);
 
         if (config.enableEc2) {
             const vpc = new Ec2VPC(this, 'VPC');
-            alb = new Ec2Alb(this, 'ALB', {
+            const alb = new Ec2Alb(this, 'ALB', {
                 vpc,
                 cloudFrontOnly: false,
-                certificateArn: certificate.certificateArn,
             });
 
             const ec2InstanceSecurityGroup = Ec2AutoScalingGroup.addAlbIngressRule(
@@ -74,19 +56,5 @@ export class CdkStack extends cdk.Stack {
 
             new cdk.CfnOutput(this, 'LoadBalancerDNS', { value: alb.loadBalancerDnsName });
         }
-
-        const distribution = new CloudfrontDistribution(this, 'CloudfrontDistribution', {
-            certificate,
-            originAccessIdentity,
-            bucket,
-            lambdaApiOrigin: restApiGateway ? restApiGateway.url : '',
-            albDnsName: alb ? alb.loadBalancerDnsName : '',
-        });
-
-        bucket.deployBucket(distribution);
-
-        new cdk.CfnOutput(this, 'CloudFrontDomain', {
-            value: distribution.domainName,
-        });
     }
 }
