@@ -54357,7 +54357,7 @@ function combine (array, callback) {
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"stage":"dev","fetchFromLambda":true}');
+module.exports = /*#__PURE__*/JSON.parse('{"stage":"dev","fetchFromLambda":false}');
 
 /***/ })
 

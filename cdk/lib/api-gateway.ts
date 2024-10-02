@@ -1,10 +1,10 @@
 import { LambdaIntegration, MethodLoggingLevel, RestApi } from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
-import { LambdaStackFunctions } from './lambda-stack';
+import { LambdaFunctions } from './lambda_functions-stack';
 import 'tsconfig-paths/register';
 import config from 'config.json';
 
-export interface ApiGatewayProps extends LambdaStackFunctions {}
+export interface ApiGatewayProps extends LambdaFunctions {}
 
 export class ApiGateway {
     private api: RestApi;

@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { IDistribution } from 'aws-cdk-lib/aws-cloudfront';
 
-export class S3Bucket extends s3.Bucket {
+export class MainSiteBucket extends s3.Bucket {
     constructor(
         private scope: Construct,
         id: string,

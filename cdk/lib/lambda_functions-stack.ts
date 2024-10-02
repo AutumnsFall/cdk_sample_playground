@@ -19,11 +19,11 @@ class BuildScriptProvider implements IBuildProvider {
     }
 }
 
-export interface LambdaStackFunctions {
+export interface LambdaFunctions {
     helloLambdaFn: lambda.Function;
 }
 
-export class LambdaStack extends Stack {
+export class LambdaFunctionsStack extends Stack {
     private lambdaConfig: lambda.FunctionProps;
     private commonLambdaRole: iam.Role;
 
@@ -110,9 +110,9 @@ export class LambdaStack extends Stack {
         });
     }
 
-    public get functions(): LambdaStackFunctions {
+    public get functions(): LambdaFunctions {
         return {
             helloLambdaFn: this.helloLambdaFn,
-        } as LambdaStackFunctions;
+        } as LambdaFunctions;
     }
 }
