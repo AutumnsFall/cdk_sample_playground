@@ -2,10 +2,10 @@
 This repository contains a simple CDK playground project developed to experiment with and test various AWS configurations and features.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.
 
 ## Author
-@AutumnsFall
+[@AutumnsFall](https://github.com/AutumnsFall)
 
 ## Installation
 To install the necessary dependencies, ensure that you have an appropriate package manager installed (e.g., npm, yarn). Depending on the manager used, confirm that all required packages are correctly installed in both the parent folder and its child directories.
@@ -23,7 +23,6 @@ This project is designed to work with a custom domain and utilizes AWS Route 53 
 npm run deploy:dev-all
 ```
 7. Update Route 53 to create alias records pointing to the CloudFront distributions and load balancer(s) associated with your resources.
-
 Once these steps are completed, the project will be ready to deploy and use.
 
 #### Accessing EC2 Instances
