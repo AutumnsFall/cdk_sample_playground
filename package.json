@@ -1,9 +1,9 @@
 {
   "name": "cdk_sample_playground",
   "version": "1.0.0",
-  "author": "",
+  "author": "AutumnsFall",
   "license": "MIT",
-  "description": "",
+  "description": "This is a simple playground CDK project I worked on to test/try some things. ",
   "workspaces": {
     "packages": [
       "cdk",

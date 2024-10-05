@@ -1,0 +1,28 @@
+{
+  "name": "skeleton",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/**/**/*.ts",
+    "fix": "eslint src/**/**/*.ts --fix",
+    "start": "tsx ./src/server.ts",
+    "local": "nodemon"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.2.0",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.10.0",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "nodemon": "^3.1.4",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
+  }
+}
