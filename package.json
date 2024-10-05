@@ -2,7 +2,7 @@
   "name": "cdk_sample_playground",
   "version": "1.0.0",
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "workspaces": {
     "packages": [

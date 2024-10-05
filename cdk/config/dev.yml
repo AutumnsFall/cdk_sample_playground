@@ -6,7 +6,7 @@ cdk:
     ecs: "ecs.thantzin.ovh"
   region: "ap-northeast-1"
   enableAPILambda: false # to toggle, also requires for SPA config
-  enableEc2: true # to toggle
+  enableEc2: false # to toggle
   ssm:
     mainSite:
       globalCertificateArnPath: "/certificates/global/dev/thantzin_ovh"
