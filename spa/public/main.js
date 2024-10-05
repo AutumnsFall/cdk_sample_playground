@@ -45517,7 +45517,7 @@ function App() {
         className: "App-logo",
         alt: "logo"
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
-        children: ["SPA on AWS CDK with React and TypeScript", spa_json__WEBPACK_IMPORTED_MODULE_3__.stage]
+        children: ["SPA on AWS CDK with React and TypeScript: ", spa_json__WEBPACK_IMPORTED_MODULE_3__.stage]
       }), spa_json__WEBPACK_IMPORTED_MODULE_3__.fetchFromLambda ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_lambdaFetch__WEBPACK_IMPORTED_MODULE_4__.LambdaPayload, {}) : (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         children: "Fetching from Lambda is disabled"
       })]

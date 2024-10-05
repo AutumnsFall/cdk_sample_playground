@@ -9,10 +9,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          SPA on AWS CDK with React and TypeScript
-          {spaConfig.stage}
-        </p>
+        <p>SPA on AWS CDK with React and TypeScript: {spaConfig.stage}</p>
         {spaConfig.fetchFromLambda ? (
           <LambdaPayload />
         ) : (

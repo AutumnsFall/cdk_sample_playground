@@ -6,9 +6,13 @@ cdk:
     ecs: "ecs.thantzin.ovh"
   region: "ap-northeast-1"
   enableAPILambda: false # to toggle, also requires for SPA config
-  enableEc2: false # to toggle
+  enableEc2: true # to toggle
   ssm:
-    mainCertificateArnPath: "/certificates/dev/thantzin_ovh"
+    mainSite:
+      globalCertificateArnPath: "/certificates/global/dev/thantzin_ovh"
+    ec2:
+      globalCertificateArnPath: "/certificates/global/dev/thantzin_ovh"
+      localCertificateArnPath: "/certificates/local/dev/ec2-alb_thantzin_ovh"
   allowedOrigins: 
     - "https://localhost:8443"
     - "http://localhost:8443"

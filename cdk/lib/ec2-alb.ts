@@ -1,10 +1,15 @@
 import {
     ApplicationLoadBalancer,
     ApplicationLoadBalancerProps,
-    IApplicationLoadBalancerTarget,
+    SslPolicy,
 } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import 'tsconfig-paths/register';
+import config from 'config.json';
+import { getSSLCertificate } from './ssl_certificate';
+import * as certificatemanager from 'aws-cdk-lib/aws-certificatemanager';
+import { Ec2AutoScalingGroup } from './ec2-asg';
 
 export interface Ec2AlbProps extends ApplicationLoadBalancerProps {
     vpc: ec2.IVpc;
@@ -70,18 +75,26 @@ export class Ec2Alb extends ApplicationLoadBalancer {
             '216.137.32.0/19',
         ];
         cloudfrontCidrIps.forEach((cidrIp) => {
-            this.sg.addIngressRule(ec2.Peer.ipv4(cidrIp), ec2.Port.tcp(443), 'Allow CloudFront traffic');
+            this.sg.addIngressRule(ec2.Peer.ipv4(cidrIp), ec2.Port.tcp(443), 'Allow traffic from CloudFront Only');
         });
     }
 
     private allowHTTPSInbound() {
-        this.sg.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443), 'Allow HTTPS traffic');
+        this.sg.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443), 'Allow traffic from anywhere');
     }
 
     private addListeners() {
         this.addListener('HttpsListener', {
-            port: 80,
+            port: 443,
             open: true,
+            certificates: [
+                certificatemanager.Certificate.fromCertificateArn(
+                    this,
+                    'ALBCert',
+                    getSSLCertificate(this, config.ssm.ec2.localCertificateArnPath).certificateArn,
+                ),
+            ],
+            sslPolicy: SslPolicy.RECOMMENDED,
         });
     }
 
@@ -93,10 +106,10 @@ export class Ec2Alb extends ApplicationLoadBalancer {
         return this.sg;
     }
 
-    public addHttpsTargets(targets: IApplicationLoadBalancerTarget[]) {
+    public addHttpsTargets(targets: Ec2AutoScalingGroup) {
         this.listeners[0].addTargets('HttpsEc2Targets', {
             port: 80,
-            targets: targets,
+            targets: [targets],
         });
     }
 }
